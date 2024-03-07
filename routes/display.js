@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { products } from '../controllers/admin.js';
+import { Product } from '../models/admin.js';
 const route = Router();
 
 route.get('/my-listing', (req, res, next) => {
@@ -7,6 +7,8 @@ route.get('/my-listing', (req, res, next) => {
 });
 
 route.get('/', (req, res, next) => {
+  const products = Product.fetchAll();
+  console.log(products);
   res.render('home', { prods: products, titlePage: 'Home - Shop', path: '/' });
 });
 

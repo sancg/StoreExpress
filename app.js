@@ -3,7 +3,7 @@ import express from 'express';
 import bps from 'body-parser';
 
 import display from './routes/display.js';
-import { admin } from './routes/admin.js';
+import admin from './routes/admin.js';
 
 const app = express();
 const PORT = 3000;
