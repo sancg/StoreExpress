@@ -1,0 +1,26 @@
+<%- include('partial/head.ejs') %>
+<link rel="stylesheet" href="/css/shop.css">
+<link rel="stylesheet" href="/css/product.css">
+</head>
+<body>
+    <%- include('partial/nav.ejs') %>
+    <main class="grid">
+        <% if (!prods?.length) { %>
+            <h1> No products to display</h1>
+        <% } else {%>
+            <% for (const prod of prods) { %>
+                <article class="card product-item">
+                    <div class="card__header">
+                        <h3 class="product__title"><%=prod.title%></h3>
+                        <img src="<%=prod.image%>" alt="<%=prod.title%>" srcset="" class="card__image">
+                    </div>
+                    <div class="card__content">
+                        <h4 class="product__price"><%=prod.price%></h4>
+                        <div class="product__description"><%=prod.description%></div>
+                        <button type="button" class="btn">Add to Cart</button>
+                    </div>
+                </article>
+            <% } %>
+        <% } %>
+    </main>
+</body>

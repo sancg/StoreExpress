@@ -1,0 +1,33 @@
+### Assesments Course
+**/assignment*/package-lock*
+class_resource*
+
+# Logs
+logs
+*.log
+package-*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+.yarn
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+*.lock
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.cjs
+*.loader.mjs
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
