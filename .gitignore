@@ -2,6 +2,9 @@
 **/assignment*/package-lock*
 class_resource*
 
+### Related to the Fake DB
+db/**/*.json
+
 # Logs
 logs
 *.log
