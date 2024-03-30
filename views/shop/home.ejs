@@ -1,10 +1,9 @@
-<%- include('partial/head.ejs') %>
+<%- include('../partial/head.ejs') %>
 <link rel="stylesheet" href="/css/shop.css">
-<link rel="stylesheet" href="/css/product.css">
 </head>
 <body>
-    <%- include('partial/nav.ejs') %>
-    <main class="grid">
+    <%- include('../partial/nav.ejs') %>
+    <main class="main__container">
         <% if (!prods?.length) { %>
             <h1> No products to display</h1>
         <% } else {%>
@@ -17,10 +16,10 @@
                     <div class="card__content">
                         <h4 class="product__price"><%=prod.price%></h4>
                         <div class="product__description"><%=prod.description%></div>
-                        <button type="button" class="btn">Add to Cart</button>
+                        <button type="button" class="primary__button">Add to Cart</button>
                     </div>
                 </article>
             <% } %>
         <% } %>
     </main>
-<%-include('partial/end.ejs') %>
+<%-include('../partial/end.ejs') %>

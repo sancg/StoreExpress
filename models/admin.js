@@ -4,18 +4,22 @@ import File from '../utils/File.js';
 const db = new File();
 const dbPath = process.cwd() + '/db/products.json';
 export class Product {
-  constructor(name, price, desc) {
+  constructor(name, price, desc, imageUrl) {
     this.name = name;
     this.price = price;
+    this.imageUrl = imageUrl;
     this.desc = desc;
   }
 
+  /**
+   * Store the product into DB
+   */
   save() {
     db._getFile(dbPath, (info) => {
       if (!info.error) {
-        info.data.push({ title: this.name, price: this.price, description: this.desc });
+        info.data.push(this);
         return fs.writeFile(
-          info.path,
+          dbPath,
           JSON.stringify(info.data),
           { encoding: 'utf8' },
           (error) => {

@@ -8,7 +8,7 @@ export default class File {
   /**
    *
    * @param {string} path
-   * @param {function} cb it returns the available path
+   * @param {function} cb it returns a Callback with { error, data, path, message }
    */
   _getFile(path, cb) {
     return fs.access(path, (error) => {

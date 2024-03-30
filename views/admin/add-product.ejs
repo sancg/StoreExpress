@@ -1,0 +1,33 @@
+<%- include('../partial/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+</head>
+<body>
+    <%- include('../partial/nav.ejs') %>
+    <main class="form__container">
+        <div class="headline">
+            <img src="/images/favicon_bota_fora.svg" alt="" srcset="" />
+            <h1 class="text__logo"><span class="green__accent">YARD</span> Sale</h1>
+          </div>
+       <form action="/admin/my-listing" method="post" class="product-form form_">
+      
+            <div class="">
+                <label for="title">Title</label>
+                <input type="text" name="title" required>
+            </div>
+            <div class="">
+                <label for="imgUrl">Image</label>
+                <input type="text" name="imgUrl" required>
+            </div>
+            <div class="">
+                <label for="price">Price</label>
+                <input type="text" name="price" required>
+            </div>
+            <div class="">
+                <label for="desc">Description</label>
+                <textarea name="desc" id="desc" cols="40" rows="10" style="width: 100%;"></textarea>
+            </div>
+       
+        <button type="submit" class="alt_btn">Send</button>
+       </form>
+    </main>
+<%-include('../partial/end.ejs') %>

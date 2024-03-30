@@ -1,6 +1,7 @@
-import { Product } from "../models/admin.js";
+import { Product } from '../models/admin.js';
+
 export const getProductForm = (req, res, next) => {
-  res.render("admin/admin", { titlePage: "Admin - Shop", path: "/admin" });
+  res.render('admin/add-product', { titlePage: 'Admin - Shop', path: '/admin' });
 };
 
 export const postProduct = (req, res, next) => {
@@ -8,5 +9,5 @@ export const postProduct = (req, res, next) => {
   new Product(title, price, desc).save();
 
   // console.log({ data: req.body, params: req.params });
-  res.redirect("/");
+  res.redirect('/');
 };
