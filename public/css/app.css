@@ -1,41 +1,200 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+:root {
+  --clr-pp-100: hsl(129, 38%, 76%);
+  --clr-pp-400: ;
+
+  --clr-neutral-100: hsl(0, 0%, 100%);
+  --clr-neutral-400: hsl(0, 0%, 97%);
+  --clr-neutral-700: hsl(0deg 0% 78%);
+
+  --clr-text-100: hsl(220, 7%, 32%);
+  --clr-text-700: hsl(192, 13%, 8%);
+
+  --clr-alert-100: hsl(360, 100%, 99%);
+  --clr-alert-700: hsl(360, 59%, 58%);
+
+  --ff-primary: "Quicksand", sans-serif;
+
+  --ff-body: var(--ff-primary);
+  --ff-heading: 'Roboto';
+
+  --fw-regular: 400;
+  --fw-normal: 500;
+  --fw-bold: 700;
+
+  --border-radius: 10px;
+  --xsm: 0.8125rem;
+  --sm: 0.875rem;
+  --md: 1rem;
+  --lg: 1.125rem;
+
+  --fs-body: var(--sm);
+  --fs-nav: var(--md);
+}
+
+@media(min-width: 50em) {
+  :root {}
+}
+
+/* Reset from https://piccalil.li/blog/a-more-modern-css-reset/ */
+/* Reduce animations by preferences */
+@media (prefers-reduce-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 * {
-    box-sizing: border-box;
+  margin: 0;
+  font: inherit;
 }
-  
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin-block-end: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core body defaults */
 body {
-    padding: 0;
-    margin: 0;
-    font-family: 'Open Sans', sans-serif;
+  height: 100%;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+/* END RESET */
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--clr-neutral-100);
+  font-family: var(--ff-body);
+  font-size: var(--fs-body);
 }
 
 main {
-    padding: 1rem;
-    margin: auto;
+  padding: 1rem;
+  margin: auto;
 }
 
-.header-nav{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    background-color: antiquewhite;
-    height: 50px;
+.header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: var(--clr-neutral-100);
+  height: 50px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+  font-size: var(--fs-nav);
 }
 
-.header-nav * {
-    margin: 0;
-    padding: 0;
+.header-nav ul,
+li {
+  /* display: flex; */
+  list-style: none;
+  margin-right: 2rem;
 }
 
-.header-nav ul{
-    display: flex;
-    margin-right: 2rem;
+main {
+  /* Make the container at least the full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.header-nav li{
-    list-style: none;
-    margin:0 1rem;
+.main__container {
+  position: relative;
+  display: grid;
+  width: 80%;
+  height: 100%;
+  grid-template-rows: auto;
+  place-items: center;
+  align-content: center;
+  /* margin: 1rem; */
 }
 
 .main-header {
@@ -65,17 +224,183 @@ main {
 
 .main-header__item a {
   text-decoration: none;
-  color: rgb(60, 60, 60);
+  color: var(--clr-accent-100);
 }
 
 .main-header__item a:hover,
-.main-header__item a:active,
 .main-header__item a.active {
   color: #0b6d85;
 }
 
 
-main{
-    max-width: 1280px;
-    margin: 0 2em;
+
+
+.headline {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  margin-bottom: 3rem;
+}
+
+.headline img {
+  width: 30px;
+}
+
+.green__accent {
+  color: var(--hospital-green);
+}
+
+h1 {
+  text-align: center;
+  font-weight: bolder;
+}
+
+.form_ {
+  min-width: 650px;
+  /* width: 100% !important;
+  display: flex;
+  flex-direction: column; */
+}
+
+.form__container label {
+  font-size: var(--md);
+  font-weight: bolder;
+  margin-bottom: 4px;
+}
+
+.form__container__input h1 {
+  font-size: var(--lg);
+  text-align: start !important;
+  margin-bottom: 3rem;
+}
+
+.form__container input {
+  margin-bottom: 1rem;
+  height: 1.4rem;
+  height: 50px;
+  padding: 1rem 0.5rem;
+  border-radius: var(--border-radius);
+  border: 1px var(--clr-neutral-400) solid;
+  background-color: var(--clr-neutral-400);
+  color: var(--clr-text-100);
+}
+
+.form__container__input {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ----------- Button styles ------------- */
+.primary__button {
+  display: block;
+  text-align: center;
+  width: 250px;
+  font-size: var(--lg);
+  border: none;
+  cursor: pointer;
+  background-color: var(--clr-pp-100);
+  color: var(--clr-neutral-100);
+  /* padding: 1rem; */
+  height: 50px;
+  border-radius: var(--border-radius);
+  font-weight: bolder;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 4px 4px 0px 0px var(--clr-text-100);
+}
+
+.alt_btn {
+  display: block;
+  cursor: pointer;
+  text-align: center;
+  width: 250px;
+  font-size: var(--lg);
+  color: var(--clr-pp-100);
+  /* padding: 1rem; */
+  height: 50px;
+  background-color: var(--white);
+  border: 2px var(--clr-pp-100) solid;
+  border-radius: var(--border-radius);
+  box-shadow: 4px 4px 0px 0px var(--clr-pp-100);
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.headline {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  margin-bottom: 3rem;
+}
+
+.headline img {
+  width: 30px;
+}
+
+
+@media (min-width: 640px) {
+
+  /* --------- DESKTOP ------------- */
+  .headline {
+    display: none;
+  }
+
+  .form__container {
+    width: auto;
+  }
+
+  .signup {
+    position: initial;
+    margin: 2rem auto;
+  }
+}
+
+/* ----------- Product Cards ----------- */
+.card {
+  border-radius: var(--border-radius);
+  list-style: none;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.15);
+  height: 300px;
+  overflow: hidden;
+}
+
+.card__header,
+.card__content {
+  padding: 1rem;
+}
+
+.card__image {
+  padding: 3rem;
+  width: fit-content;
+}
+
+.card__image img {
+  width: 100%;
+}
+
+
+.product-form {
+  width: 20rem;
+  max-width: 90%;
+  margin: auto;
+}
+
+.product-item {
+  width: 20rem;
+  max-width: 95%;
+}
+
+.product__title {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.product__price {
+  text-align: center;
+  color: #4d4d4d;
+  margin-bottom: 0.5rem;
+}
+
+.product__description {
+  text-align: center;
 }

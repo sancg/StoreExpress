@@ -2,9 +2,9 @@ import path from 'node:path';
 import express from 'express';
 import bps from 'body-parser';
 
-import display from './routes/shop.js';
+import display from './routes/store.js';
 import admin from './routes/admin.js';
-import { error404 } from './controllers/On404.js';
+import { error404 } from './controllers/error404.js';
 
 const app = express();
 const PORT = 3000;
