@@ -4,11 +4,11 @@ import File from '../utils/File.js';
 const db = new File();
 const dbPath = process.cwd() + '/db/products.json';
 export class Product {
-  constructor(name, price, desc, imageUrl) {
-    this.name = name;
+  constructor({ title, price, desc, imageUrl }) {
+    this.title = title;
     this.price = price;
-    this.imageUrl = imageUrl;
-    this.desc = desc;
+    this.image = imageUrl;
+    this.description = desc;
   }
 
   /**
