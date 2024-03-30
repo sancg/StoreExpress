@@ -40,13 +40,5 @@ export default class File {
 
       cb({ error, message: 'All checks on _getFile failed, please test again :)' });
     });
-    /*const stream = fs.createReadStream(path, { encoding: 'utf8' });
-    stream.close((err) => {
-      cb(err);
-    });
-    stream.once('data', (chunk) => {
-      console.log(chunk);
-      cb(chunk);
-    });*/
   }
 }
