@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getStore } from '../controllers/store.js';
-const route = Router();
+const store = Router();
 
-route.get('/', getStore);
+store.get('/', getStore);
 
-export default route;
+export default store;
