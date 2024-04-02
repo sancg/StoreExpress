@@ -8,3 +8,9 @@ export const getStore = (_: Request, res: Response) => {
     res.render('shop/index', { prods: products, titlePage: 'Home - Shop', path: '/' });
   });
 };
+
+export const getProductDetail = (req: Request, res: Response) => {
+  const { productId } = req.params;
+  console.log({ productId });
+  res.redirect('/');
+};
