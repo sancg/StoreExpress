@@ -3,7 +3,7 @@
 class_resource*
 
 ### Related to the Fake DB
-db/**/*.json
+**/db/**/*.json
 
 # Logs
 logs
