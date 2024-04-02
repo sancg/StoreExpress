@@ -50,12 +50,13 @@ class Connection {
 }
 
 export class Product implements IProduct {
+  id: string = '';
   title: string;
   price: number;
   description: string;
   imageUrl: string;
 
-  constructor({ title, price, description, imageUrl }: IProduct) {
+  constructor({ title, price, description, imageUrl }: Omit<IProduct, 'id'>) {
     this.title = title;
     this.price = price;
     this.imageUrl = imageUrl;
@@ -66,6 +67,7 @@ export class Product implements IProduct {
    * Store the product into DB
    */
   save() {
+    this.id = Date.now().toString();
     Connection.getFile(dbPath, (info) => {
       if (!info.error) {
         info?.data?.push(this);
