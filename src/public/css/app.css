@@ -429,6 +429,36 @@ main {
   flex-shrink: 0;
 }
 
+/* ------------ Admin Products display ------------- */
+.display_table {
+  margin: 32px;
+}
+
+.display_table__img {
+  width: 100px;
+  margin: auto;
+}
+
+table,
+tr,
+th,
+td,
+caption {
+  border: 1px solid var(--clr-neutral-700);
+  border-collapse: collapse;
+  padding: .5rem;
+}
+
+.control_actions {
+  display: inline-flex;
+  gap: 5px;
+
+  button {
+    width: auto;
+    height: auto;
+  }
+}
+
 @media (max-width: 640px) {
 
   /* Media query affected when viewport is less than 640px */

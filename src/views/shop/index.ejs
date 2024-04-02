@@ -1,5 +1,4 @@
 <%- include('../partial/head.ejs') %>
-<link rel="stylesheet" href="/css/shop.css">
 </head>
 <body>
     <%- include('../partial/nav.ejs') %>
@@ -8,7 +7,7 @@
             <h1> No products to display</h1>
         <% } else {%>
             <% for (const prod of prods) { %>
-                <%-include('./productItem.ejs', {prod}) %>
+                <%-include('../components/productItem.ejs', {prod}) %>
             <% } %>
         <% } %>
     </main>

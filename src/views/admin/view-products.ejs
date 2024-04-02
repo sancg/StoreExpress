@@ -1,0 +1,41 @@
+<%- include('../partial/head.ejs') %>
+</head>
+
+<body>
+    <%- include('../partial/nav.ejs') %>
+    <main class="">
+        <% if (!prods?.length) { %>
+            <h1> No products to display</h1>
+        <% } else {%>
+        <table class="display_table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (const prod of prods) { %>
+                    <tr data-id="<%=prod.id%>">
+                        <td><%=prod.title%></td>
+                        <td><div class="display_table__img"><img src="<%=prod.imageUrl%>" alt="" srcset=""></div></td>
+                        <td><%=prod.price%></td>
+                        <td><%=prod.description%></td>
+                        <td>
+                            <div class="control_actions">
+                                <button class="primary__button" type="button">Edit</button>
+                                <form action="/delete/:id" method="post">
+                                    <button class="alt_btn" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>   
+            </tbody>
+        </table>
+        <% } %>
+    </main>
+<%-include('../partial/end.ejs') %>
