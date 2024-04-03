@@ -4,13 +4,19 @@ import type { IProduct } from '../types/types';
 
 export const getStore = (_: Request, res: Response) => {
   Product.fetchAll((products: IProduct) => {
-    // console.log(products);
     res.render('shop/index', { prods: products, titlePage: 'Home - Shop', path: '/' });
   });
 };
 
-export const getProductDetail = (req: Request, res: Response) => {
+export const getProductDetail = async (req: Request, res: Response) => {
   const { productId } = req.params;
   console.log({ productId });
-  res.redirect('/');
+  const prod = await Product.fetchProduct(productId);
+  console.log(prod);
+  // TODO: Create the logic to retrieve the product info based on its ID. Apply frontend
+  res.render('shop/detailProduct', {
+    productId,
+    path: `/shop/${productId}`,
+    titlePage: 'Shop - Detail',
+  });
 };

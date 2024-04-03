@@ -49,25 +49,22 @@ class Connection {
   }
 }
 
-export class Product implements IProduct {
-  id: string = '';
+export class Product {
+  id: string;
   title: string;
   price: number;
   description: string;
   imageUrl: string;
 
   constructor({ title, price, description, imageUrl }: Omit<IProduct, 'id'>) {
+    this.id = Date.now().toString();
     this.title = title;
     this.price = price;
     this.imageUrl = imageUrl;
     this.description = description;
   }
 
-  /**
-   * Store the product into DB
-   */
-  save() {
-    this.id = Date.now().toString();
+  save = () => {
     Connection.getFile(dbPath, (info) => {
       if (!info.error) {
         info?.data?.push(this);
@@ -83,7 +80,7 @@ export class Product implements IProduct {
         );
       }
     });
-  }
+  };
 
   static fetchAll(cb: Function) {
     return Connection.getFile(dbPath, (info) => {
@@ -92,4 +89,48 @@ export class Product implements IProduct {
       }
     });
   }
+
+  static fetchProduct = async (
+    id: string,
+    _cb?: Function
+  ): Promise<IProduct | undefined | void> => {
+    if (!_cb) {
+      return new Promise((resolve, reject) => {
+        try {
+          Connection.getFile(dbPath, (info) => {
+            if (!info.error) {
+              const { data } = info;
+              const product = data?.find((prod) => prod.id == id);
+              resolve(product);
+            }
+          });
+        } catch (error) {
+          reject(error);
+        }
+      });
+    }
+
+    return Connection.getFile(dbPath, (info) => {
+      if (!info.error) {
+        const { data } = info;
+        const product = data?.find((prod) => prod.id == id);
+
+        if (_cb) {
+          return _cb(product ?? {});
+        }
+
+        return new Promise<IProduct>((resolve, reject) => {
+          try {
+            if (product) {
+              return resolve(product);
+            }
+          } catch (error) {
+            console.error(error);
+            reject(error);
+            throw new Error('No product found');
+          }
+        });
+      }
+    });
+  };
 }
