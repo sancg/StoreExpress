@@ -3,6 +3,20 @@
 <body>
     <%- include('../partial/nav.ejs') %>
     <main class="">
-        <h1>Here we are :)</h1>
+        <section class="pd">
+            <div>
+                <img src="<%=prod.imageUrl%>" alt="<%=prod.title%>">
+            </div>
+
+            <div class="pd__content">
+                <h3 class="pd__content__price">$ <%=prod.price%></h3>
+                <h2 class="pd__content__title"><%=prod.title%></h2>
+                <p><%=prod.description%></p>
+                <div class="pd__add_cart">
+                    <button class="primary__button" type="button">Add to Cart</button>
+                </div>
+            </div>
+          
+        </section>
     </main>
 <%-include('../partial/end.ejs') %>
