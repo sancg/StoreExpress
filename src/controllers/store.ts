@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { Product } from '../models/admin';
 import type { IProduct } from '../types/types';
 
@@ -18,4 +18,17 @@ export const getProductDetail = async (req: Request, res: Response) => {
     path: `/shop/${productId}`,
     titlePage: 'Shop - Detail',
   });
+};
+
+export const getCart = async (_req: Request, res: Response, _next: NextFunction) => {
+  res.render('shop/cart', {
+    path: '/cart',
+    titlePage: 'Shop',
+  });
+};
+
+export const postCart = async (req: Request, res: Response) => {
+  const { productId } = req.body;
+  console.log({ productId });
+  res.redirect('/cart');
 };
