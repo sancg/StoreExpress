@@ -12,7 +12,7 @@
   --clr-alert-100: hsl(360, 100%, 99%);
   --clr-alert-700: hsl(360, 59%, 58%);
 
-  --ff-primary: "Quicksand", sans-serif;
+  --ff-primary: 'Quicksand', sans-serif;
 
   --ff-body: var(--ff-primary);
   --ff-heading: 'Roboto';
@@ -33,14 +33,14 @@
   --fs-nav: var(--md);
 }
 
-@media(min-width: 50em) {
-  :root {}
+@media (min-width: 50em) {
+  :root {
+  }
 }
 
 /* Reset from https://piccalil.li/blog/a-more-modern-css-reset/ */
 /* Reduce animations by preferences */
 @media (prefers-reduce-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -176,7 +176,7 @@ main {
   height: 50px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05);
   font-size: var(--fs-nav);
-  margin: 0 32px
+  margin: 0 32px;
 }
 
 .headline {
@@ -238,7 +238,6 @@ li {
   }
 }
 
-
 /* main {
   display: flex;
   flex-direction: column;
@@ -254,7 +253,7 @@ li {
   max-width: 75rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   place-items: center;
-  gap: .625rem;
+  gap: 0.625rem;
 }
 
 /* --------- GENERAL FORMS ---------- */
@@ -325,7 +324,6 @@ li {
   }
 }
 
-
 /* ----------- Button styles ------------- */
 .primary__button {
   display: block;
@@ -395,7 +393,7 @@ li {
 .pd__content__price {
   font-size: large;
   font-weight: 700;
-  color: var(--clr-text-700)
+  color: var(--clr-text-700);
 }
 
 .pd__content__title {
@@ -448,12 +446,15 @@ li {
 }
 
 .card__content__cart {
-
+  button {
+    background-color: transparent;
+    border: none;
+  }
 
   svg {
     cursor: pointer;
-    -webkit-filter: drop-shadow(3px 0px 0px rgba(0, 0, 0, .05));
-    filter: drop-shadow(3px 0px 0px rgba(0, 0, 0, .05));
+    -webkit-filter: drop-shadow(3px 0px 0px rgba(0, 0, 0, 0.05));
+    filter: drop-shadow(3px 0px 0px rgba(0, 0, 0, 0.05));
   }
 
   flex-shrink: 0;
@@ -476,7 +477,7 @@ td,
 caption {
   border: 1px solid var(--clr-neutral-700);
   border-collapse: collapse;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .control_actions {
@@ -490,7 +491,6 @@ caption {
 }
 
 @media (max-width: 640px) {
-
   /* Media query affected when viewport is less than 640px */
   .shop_grid {
     margin: auto;
