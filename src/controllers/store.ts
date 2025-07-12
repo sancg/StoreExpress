@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { Product } from '../models/admin';
+import { Cart } from '../models/cart';
+
 import type { IProduct } from '../types/types';
 
 export const getStore = (_: Request, res: Response) => {
