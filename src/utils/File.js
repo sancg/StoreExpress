@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { extname, join } from 'node:path';
 
-export default class File {
+export default class BackendFile {
   constructor(path = process.cwd()) {
     this.path = path;
   }

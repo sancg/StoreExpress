@@ -3,17 +3,12 @@ import { extname, join } from 'node:path';
 import rootPath from '../utils/paths';
 import type { ICallback, IProduct } from '../types/types';
 
-const dbPath = rootPath + '/db/products.json';
-
 class Connection {
-  pathConnection: string = rootPath + 'db/products.json';
+  constructor(private readonly dirPath: string = rootPath + '/db/products.json') {}
 
-  // constructor(path: string = rootPath) {
-  //   this.connection = path;
-  // }
-
-  static getFile(path: string, cb: ICallback) {
-    return fs.access(path, (error) => {
+  static getFile(cb: ICallback, path?: string) {
+    const dirPath = new Connection().dirPath;
+    return fs.access((path = dirPath), (error) => {
       if (!error) {
         return fs.readFile(path, (error, data) => {
           if (!error) {
@@ -65,11 +60,11 @@ export class Product {
   }
 
   save = () => {
-    Connection.getFile(dbPath, (info) => {
+    Connection.getFile((info) => {
       if (!info.error) {
         info?.data?.push(this);
         return fs.writeFile(
-          dbPath,
+          info.path,
           JSON.stringify(info.data),
           { encoding: 'utf8' },
           (error) => {
@@ -83,21 +78,21 @@ export class Product {
   };
 
   static fetchAll(cb: Function) {
-    return Connection.getFile(dbPath, (info) => {
+    return Connection.getFile((info) => {
       if (!info.error) {
         cb(info.data);
       }
     });
   }
 
-  static fetchProduct = async (
+  static findProductID = async (
     id: string,
     _cb?: Function
   ): Promise<IProduct | undefined | void> => {
     if (!_cb) {
       return new Promise((resolve, reject) => {
         try {
-          Connection.getFile(dbPath, (info) => {
+          Connection.getFile((info) => {
             if (!info.error) {
               const { data } = info;
               const product = data?.find((prod) => prod.id == id);
@@ -110,7 +105,7 @@ export class Product {
       });
     }
 
-    return Connection.getFile(dbPath, (info) => {
+    return Connection.getFile((info) => {
       if (!info.error) {
         const { data } = info;
         const product = data?.find((prod) => prod.id == id);

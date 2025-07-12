@@ -19,7 +19,7 @@ export const getProducts = (_req: Request, res: Response) => {
 export const postProduct = (req: Request, res: Response) => {
   const { title, price, description, imageUrl } = req.body;
 
-  new Product({ title, price, imageUrl, description }).save();
+  new Product({ title, price: Number(price), imageUrl, description }).save();
 
   // console.log({ data: req.body, params: req.params });
   res.redirect('/');

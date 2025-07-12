@@ -11,7 +11,7 @@ export const getStore = (_: Request, res: Response) => {
 export const getProductDetail = async (req: Request, res: Response) => {
   const { productId } = req.params;
   // console.log({ productId });
-  const prod = await Product.fetchProduct(productId);
+  const prod = await Product.findProductID(productId);
   // console.log(prod);
   res.render('shop/detailProduct', {
     prod,
@@ -29,6 +29,8 @@ export const getCart = async (_req: Request, res: Response, _next: NextFunction)
 
 export const postCart = async (req: Request, res: Response) => {
   const { productId } = req.body;
-  console.log({ productId });
+  const p = await Product.findProductID(productId);
+
+  await Cart.addProduct(p!);
   res.redirect('/cart');
 };
