@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Product } from '../models/admin';
+import { Product } from '../models/Product';
 import type { IProduct } from '../types/types';
 
 export const getProductForm = (_req: Request, res: Response) => {

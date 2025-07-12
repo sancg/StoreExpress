@@ -1,16 +1,30 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { IProduct, modelCart } from '../types/types';
 import rootPath from '../utils/paths';
+import Connection from './connection';
 
 export class Cart {
   private static pathConnection: string = rootPath + '/db/cart.json';
+
+  static fetchCart(cb: Function) {
+    return Connection.getFile((info) => {
+      if (!info.error) {
+        cb(info.data);
+      }
+    }, this.pathConnection);
+  }
 
   static async addProduct(p: IProduct) {
     // Fetch the previous cart
     let cart: modelCart = { products: [], totalPrice: 0 };
 
     try {
-      cart = JSON.parse(await readFile(this.pathConnection, { encoding: 'utf8' }));
+      const cartData: modelCart = JSON.parse(
+        await readFile(this.pathConnection, { encoding: 'utf8' })
+      );
+      if (cartData?.products) {
+        cart = cartData;
+      }
     } catch (error) {
       console.warn('Cart object was not found: ' + error);
     }

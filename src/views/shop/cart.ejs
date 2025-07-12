@@ -1,0 +1,43 @@
+<%- include('../partial/head.ejs') %>
+</head>
+
+<body>
+    <%- include('../partial/nav.ejs') %>
+
+    <main class="">
+        <h1>Cart</h1>
+        <% if (!cart.products?.length) { %>
+            <h2> You hasn't purchase yet, please visit our <a href="/">store</a></h2>
+        <% } else {%>
+        <table class="display_table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (const prod of cart.products) { %>
+                    <tr data-id="<%=prod.id%>">
+                        <td><%=prod.title%></td>
+                        <td><div class="display_table__img"><img src="<%=prod.imageUrl%>" alt="" srcset=""></div></td>
+                        <td><%=prod.price%></td>
+                        <td><%=prod.quantity%></td>
+                        <td>
+                            <div class="control_actions">
+                                <button class="primary__button" type="button">Edit</button>
+                                <form action="/<%=prod.id%>" method="post">
+                                    <button class="alt_btn" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>   
+            </tbody>
+        </table>
+        <% } %>
+    </main>
+<%-include('../partial/end.ejs') %>
