@@ -5,8 +5,8 @@ import livereload from 'livereload';
 import connectLive from 'connect-livereload';
 
 import rootPath from './utils/paths';
-import admin from './routes/admin';
-import store from './routes/store';
+import adminRoute from './routes/admin';
+import route from './routes/store';
 import { error404 } from './controllers/error404';
 
 const liveReloadServer = livereload.createServer();
@@ -31,8 +31,8 @@ app.set('views', [rootPath + '/views']);
 app.use(express.static(rootPath + '/public'));
 app.use(bps.urlencoded({ extended: false }));
 
-app.use(store);
-app.use('/admin', admin);
+app.use(route);
+app.use('/admin', adminRoute);
 
 app.use(error404);
 
