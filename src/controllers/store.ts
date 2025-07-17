@@ -1,16 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
 import { Product } from '../models/Product';
-import { Cart } from '../models/cart';
+import Cart from '../models/Cart';
 
 import type { IProduct } from '../types/types';
 
-export const getStore = (_: Request, res: Response) => {
+const getStore = (_: Request, res: Response) => {
   Product.fetchAll((products: IProduct) => {
     res.render('shop/index', { prods: products, titlePage: 'Home - Shop', path: '/' });
   });
 };
 
-export const getProductDetail = async (req: Request, res: Response) => {
+const getProductDetail = async (req: Request, res: Response) => {
   const { productId } = req.params;
   const prod = await Product.findProductID(productId);
 
@@ -21,21 +21,37 @@ export const getProductDetail = async (req: Request, res: Response) => {
   });
 };
 
-export const getCart = async (_req: Request, res: Response, _next: NextFunction) => {
-  Cart.fetchCart((i: unknown) => {
-    console.log('Retrieve Cart: ', i);
-    res.render('shop/cart', {
-      path: '/cart',
-      titlePage: 'Shop',
-      cart: i,
-    });
+const getCart = async (_req: Request, res: Response, _next: NextFunction) => {
+  const productsCart = await Cart.fetchCart();
+
+  res.render('shop/cart', {
+    path: '/cart',
+    titlePage: 'Shop',
+    cart: productsCart,
   });
 };
 
-export const postCart = async (req: Request, res: Response) => {
+const postCart = async (req: Request, res: Response) => {
   const { productId } = req.body;
-  const p = await Product.findProductID(productId);
 
-  await Cart.addProduct(p!);
+  // Deleting Cart
+  if (req.query.delete) {
+    await Cart.deleteFromCart(productId);
+    res.redirect('/cart');
+    return;
+  }
+
+  const p = await Product.findProductID(productId);
+  console.log({ productId, query: req.query });
+  await Cart.addToCart(p!);
   res.redirect('/cart');
 };
+
+const StoreController = {
+  getStore,
+  getProductDetail,
+  getCart,
+  postCart,
+};
+
+export default StoreController;

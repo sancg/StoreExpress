@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import { getProductDetail, getStore, getCart, postCart } from '../controllers/store';
-const store = Router();
+import StoreController from '../controllers/store';
+const route = Router();
 
-store.get('/', getStore);
-store.get('/shop/detail/:productId', getProductDetail);
+route.get('/', StoreController.getStore);
+route.get('/shop/detail/:productId', StoreController.getProductDetail);
 
-store.get('/cart', getCart);
-store.post('/cart', postCart);
-export default store;
+route.get('/cart', StoreController.getCart);
+route.post('/cart', StoreController.postCart);
+
+export default route;

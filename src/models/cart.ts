@@ -1,12 +1,23 @@
 import { readFile, writeFile } from 'node:fs/promises';
-import { IProduct, modelCart } from '../types/types';
+import type { IProduct, modelCart, IProductCart } from '../types/types';
 import rootPath from '../utils/paths';
 import Connection from './connection';
 
-export class Cart {
+export default class Cart {
   private static pathConnection: string = rootPath + '/db/cart.json';
 
-  static fetchCart(cb: Function) {
+  static async fetchCart(cb?: Function) {
+    if (!cb) {
+      return new Promise((resolve, reject) => {
+        Connection.getFile((info) => {
+          if (!info.error) {
+            resolve(info.data);
+          }
+          reject(info);
+        }, this.pathConnection);
+      });
+    }
+
     return Connection.getFile((info) => {
       if (!info.error) {
         cb(info.data);
@@ -14,7 +25,7 @@ export class Cart {
     }, this.pathConnection);
   }
 
-  static async addProduct(p: IProduct) {
+  static async addToCart(p: IProduct) {
     // Fetch the previous cart
     let cart: modelCart = { products: [], totalPrice: 0 };
 
@@ -46,7 +57,27 @@ export class Cart {
 
     // Add new product / increase quantity
     cart.totalPrice += updateProduct.price;
-    console.log({ cart });
-    await writeFile(this.pathConnection, JSON.stringify(cart, null, 2));
+    // console.log({ cart });
+    await writeFile(this.pathConnection, JSON.stringify(cart, null, 2), { encoding: 'utf8' });
+  }
+
+  static async deleteFromCart(productId: string) {
+    // 1. Get all the cart
+    const cart = (await this.fetchCart()) as { products: IProductCart[]; totalPrice: number };
+    // console.log({ totalBefore: cart.totalPrice });
+    // 2. Extract the product to delete from
+    const p = cart.products.find((prod) => prod.id === productId);
+    if (!p) {
+      console.warn(`Product ID: ${productId} not found on cart`);
+      return;
+    }
+    // 2.1 Exclude the Item
+    const updatedProducts = cart.products.filter((prod) => prod.id !== productId);
+    // 3. Update the Total Cart
+    cart.totalPrice -= p.price * p.quantity;
+    console.log({ totalAfter: cart.totalPrice });
+    cart.products = updatedProducts;
+
+    await writeFile(this.pathConnection, JSON.stringify(cart), { encoding: 'utf8' });
   }
 }

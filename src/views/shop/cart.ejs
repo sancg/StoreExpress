@@ -5,7 +5,8 @@
     <%- include('../partial/nav.ejs') %>
 
     <main class="">
-        <h1>Cart</h1>
+        <h1>Cart Total <%=Math.round(cart.totalPrice * 100) / 100%></h1>
+        <pre><%= JSON.stringify(cart) %></pre>
         <% if (!cart.products?.length) { %>
             <h2> You hasn't purchase yet, please visit our <a href="/">store</a></h2>
         <% } else {%>
@@ -29,7 +30,8 @@
                         <td>
                             <div class="control_actions">
                                 <button class="primary__button" type="button">Edit</button>
-                                <form action="/<%=prod.id%>" method="post">
+                                <form action="/cart?delete=true" method="post">
+                                    <input type="hidden" name="productId" value="<%=prod.id%>"/>
                                     <button class="alt_btn" type="submit">Delete</button>
                                 </form>
                             </div>
