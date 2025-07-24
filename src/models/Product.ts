@@ -1,6 +1,6 @@
 import fs from 'node:fs';
-import { IProduct } from '../types/types';
-import Connection from './connection';
+import type { IProduct } from '../types/types';
+import Connection from './Connection';
 
 export class Product {
   id: string;
@@ -34,6 +34,27 @@ export class Product {
       }
     });
   };
+  static async editProduct(infoProduct: IProduct) {
+    this.fetchAll((allProducts: IProduct[]) => {
+      const indexProduct = allProducts.findIndex((i) => i.id === infoProduct.id);
+      allProducts[indexProduct] = infoProduct;
+
+      Connection.getFile((info) => {
+        if (!info.error) {
+          return fs.writeFile(
+            info.path,
+            JSON.stringify(allProducts),
+            { encoding: 'utf8' },
+            (e) => {
+              if (!e) {
+                console.log('Product Saved!');
+              }
+            }
+          );
+        }
+      });
+    });
+  }
 
   static fetchAll(cb: Function) {
     return Connection.getFile((info) => {

@@ -26,7 +26,11 @@
                         <td><%=prod.description%></td>
                         <td>
                             <div class="control_actions">
-                                <button class="primary__button" type="button">Edit</button>
+                                <form action="/admin" method="post">
+                                    <input type="hidden" value="true" name="edit"/>
+                                    <input type="hidden" value="<%=prod.id%>" name="productId"/>
+                                    <button class="primary__button" type="submit">Edit</button>
+                                </form>
                                 <form action="/<%=prod.id%>" method="post">
                                     <button class="alt_btn" type="submit">Delete</button>
                                 </form>

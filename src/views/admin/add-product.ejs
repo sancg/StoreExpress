@@ -4,18 +4,19 @@
     <%- include('../partial/nav.ejs') %>
     <main>
         <section class="form__container">
-            <form action="/admin/my-listing" method="post" class="global_form"> 
+           <%if(!edit){%> 
+           <form action="/admin/addProduct" method="post" class="global_form"> 
                 <div class="form__control">
                     <label for="title">Title</label>
-                    <input type="text" name="title" required>
+                    <input type="text" id='title' name="title" required>
                 </div>
                 <div class="">
                     <label for="imageUrl">Image</label>
-                    <input type="text" name="imageUrl" required>
+                    <input type="text" id="imageUrl" name="imageUrl" required>
                 </div>
                 <div class="">
                     <label for="price">Price</label>
-                    <input type="number" name="price" required>
+                    <input type="number" id='price' name="price" required>
                 </div>
                 <div class="">
                     <label for="description">Description</label>
@@ -23,7 +24,30 @@
                 </div>
            
             <button type="submit" class="alt_btn">Send</button>
+           </form> 
+            <% } else {%> 
+                <form action="/admin/editProduct" method="post" class="global_form"> 
+                <input type="hidden" name="id" value="<%=product.id%>"/>
+                    <div class="form__control">
+                    <label for="title">Title</label>
+                    <input type="text" id='title' name="title" required value="<%=product.title%>">
+                </div>
+                <div class="">
+                    <label for="imageUrl">Image</label>
+                    <input type="text" id="imageUrl" name="imageUrl" value="<%=product.imageUrl%>" required>
+                </div>
+                <div class="">
+                    <label for="price">Price</label>
+                    <input type="text" id='price' name="price" value="<%=product.price%>">
+                </div>
+                <div class="">
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" cols="40" rows="5" style="width: 100%;" spellcheck="true"><%=product.description%></textarea>
+                </div>
+           
+            <button type="submit" class="alt_btn">Send</button>
            </form>
+           <% } %>
         </section>
        
     </main>

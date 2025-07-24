@@ -3,7 +3,23 @@ import { Product } from '../models/Product';
 import type { IProduct } from '../types/types';
 
 const getProductForm = (_req: Request, res: Response) => {
-  res.render('admin/add-product', { titlePage: 'Admin - Shop', path: '/admin' });
+  res.render('admin/add-product', {
+    edit: false,
+    product: null,
+    titlePage: 'Admin - Add',
+    path: '/admin',
+  });
+};
+
+const sendToEditProduct = async (req: Request, res: Response) => {
+  const { productId } = req.body;
+  const p = await Product.findProductID(productId);
+  res.render('admin/add-product', {
+    edit: true,
+    product: p,
+    titlePage: 'Admin - Edit',
+    path: '/admin?edit=true',
+  });
 };
 
 const getProducts = (_req: Request, res: Response) => {
@@ -16,7 +32,7 @@ const getProducts = (_req: Request, res: Response) => {
   });
 };
 
-const postProduct = (req: Request, res: Response) => {
+const addProduct = (req: Request, res: Response) => {
   const { title, price, description, imageUrl } = req.body;
 
   new Product({ title, price: Number(price), imageUrl, description }).save();
@@ -25,5 +41,19 @@ const postProduct = (req: Request, res: Response) => {
   res.redirect('/');
 };
 
-const AdminController = { getProductForm, postProduct, getProducts };
+const editProduct = (req: Request, res: Response) => {
+  const { price } = req.body;
+  //TBD: Validation of data.
+  const p = { ...req.body, price: Number(price) };
+  Product.editProduct(p);
+  res.redirect('/admin');
+};
+
+const AdminController = {
+  getProductForm,
+  postProduct: addProduct,
+  getProducts,
+  editProduct,
+  sendToEditProduct,
+};
 export default AdminController;

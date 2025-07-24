@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import type { IProduct, modelCart, IProductCart } from '../types/types';
 import rootPath from '../utils/paths';
-import Connection from './connection';
+import Connection from './Connection';
 
 export default class Cart {
   private static pathConnection: string = rootPath + '/db/cart.json';
