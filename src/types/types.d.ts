@@ -10,5 +10,13 @@ interface IProduct {
   description: string;
   imageUrl: string;
 }
+interface IProductCart extends IProduct {
+  quantity: number;
+}
 
-export { ICallback, IProduct };
+type modelCart = {
+  products: IProductCart[];
+  totalPrice: number;
+};
+
+export { ICallback, IProduct, IProductCart, modelCart };

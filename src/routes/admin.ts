@@ -1,10 +1,14 @@
 import { Router } from 'express';
-import { getProductForm, getProducts, postProduct } from '../controllers/admin';
-const admin = Router();
+import AdminController from '../controllers/admin';
 
-admin.get('', getProductForm);
-admin.get('/view-products', getProducts);
+const adminRoute = Router();
 
-admin.post('/my-listing', postProduct);
+adminRoute.get('', AdminController.getProductForm);
+adminRoute.post('', AdminController.sendToEditProduct);
 
-export default admin;
+adminRoute.get('/view-products', AdminController.getProducts);
+
+adminRoute.post('/addProduct', AdminController.postProduct);
+adminRoute.post('/editProduct', AdminController.editProduct);
+
+export default adminRoute;
